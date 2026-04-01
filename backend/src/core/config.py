@@ -36,28 +36,8 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
     # CORS
-    _cors_origins_env: str = os.getenv("CORS_ORIGINS", "")
-    CORS_ORIGINS: List[str] = (
-        [origin.strip() for origin in _cors_origins_env.split(",") if origin.strip()]
-        if _cors_origins_env
-        else [
-            "http://localhost:3000",
-            "http://localhost:8000",
-            "https://autonomiq.ai",
-            "https://www.autonomiq.ai",
-        ]
-    )
-    _allowed_hosts_env: str = os.getenv("ALLOWED_HOSTS", "")
-    ALLOWED_HOSTS: List[str] = (
-        [host.strip() for host in _allowed_hosts_env.split(",") if host.strip()]
-        if _allowed_hosts_env
-        else [
-            "localhost",
-            "127.0.0.1",
-            "autonomiq.ai",
-            "www.autonomiq.ai",
-        ]
-    )
+    CORS_ORIGINS_RAW: str = os.getenv("CORS_ORIGINS", "")
+    ALLOWED_HOSTS_RAW: str = os.getenv("ALLOWED_HOSTS", "")
 
     # AWS
     AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
@@ -86,6 +66,30 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+
+    @property
+    def CORS_ORIGINS(self) -> List[str]:
+        raw = self.CORS_ORIGINS_RAW.strip()
+        if raw:
+            return [origin.strip() for origin in raw.split(",") if origin.strip()]
+        return [
+            "http://localhost:3000",
+            "http://localhost:8000",
+            "https://autonomiq.ai",
+            "https://www.autonomiq.ai",
+        ]
+
+    @property
+    def ALLOWED_HOSTS(self) -> List[str]:
+        raw = self.ALLOWED_HOSTS_RAW.strip()
+        if raw:
+            return [host.strip() for host in raw.split(",") if host.strip()]
+        return [
+            "localhost",
+            "127.0.0.1",
+            "autonomiq.ai",
+            "www.autonomiq.ai",
+        ]
 
 
 settings = Settings()
