@@ -4,11 +4,11 @@ python-multipart==0.0.6
 pydantic==2.5.0
 pydantic-settings==2.1.0
 SQLAlchemy==2.0.23
-psycopg2-binary==2.9.9
+asyncpg==0.29.0
 python-jose==3.3.0
 passlib==1.7.4
 bcrypt==4.1.1
-PyJWT==2.8.1
+PyJWT==2.10.1
 redis==5.0.1
 celery==5.3.4
 aioredis==2.0.1
@@ -18,5 +18,4 @@ requests==2.31.0
 httpx==0.25.1
 cors==1.0.1
 email-validator==2.1.0
-jose==1.1.0
 cryptography==41.0.7
