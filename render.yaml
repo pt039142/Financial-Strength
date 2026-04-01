@@ -16,10 +16,10 @@ services:
       - key: ALLOWED_HOSTS
         sync: false
 
-  - type: static
+  - type: web
     name: autonomiq-web
+    runtime: static
     plan: free
-    region: ohio
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
